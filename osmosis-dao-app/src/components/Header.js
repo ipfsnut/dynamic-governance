@@ -3,7 +3,22 @@ import { Link } from 'react-router-dom';
 import { useDynamicContext } from '@dynamic-labs/sdk-react';
 
 function Header() {
-  const { user, handleLogOut, showAuthFlow } = useDynamicContext();
+  const dynamicContext = useDynamicContext();
+  
+  console.log('Dynamic Context:', dynamicContext);
+
+  const { user, handleLogOut, showAuthFlow } = dynamicContext || {};
+
+  const handleConnect = () => {
+    console.log('Connect clicked');
+    if (typeof showAuthFlow === 'function') {
+      showAuthFlow();
+    } else if (dynamicContext && typeof dynamicContext.setShowAuthFlow === 'function') {
+      dynamicContext.setShowAuthFlow(true);
+    } else {
+      console.error('No method available to show auth flow');
+    }
+  };
 
   return (
     <header>
@@ -16,11 +31,11 @@ function Header() {
       </nav>
       {user ? (
         <div>
-          <span>{user.wallet.address}</span>
+          <span>{user.wallet?.address}</span>
           <button onClick={handleLogOut}>Disconnect</button>
         </div>
       ) : (
-        <button onClick={showAuthFlow}>Connect Wallet</button>
+        <button onClick={handleConnect}>Connect Wallet</button>
       )}
     </header>
   );
