@@ -1,30 +1,25 @@
-import { SigningCosmWasmClient } from "@cosmjs/cosmwasm-stargate";
+const API_BASE_URL = 'http://localhost:3001/api'; // Adjust if your server is on a different port
 
-const RPC_ENDPOINT = "https://osmosis-rpc.polkachu.com"; // Replace with the correct Osmosis RPC endpoint
-const CONTRACT_ADDRESS = "osmo1a40j922z0kwqhw2nn0nx66ycyk88vyzcs73fyjrd092cjgyvyjksrd8dp7"; // Replace with your actual contract address
-
-async function getOsmosisClient() {
-  return await SigningCosmWasmClient.connect(RPC_ENDPOINT);
+export async function getDaoInfo(address) {
+  const response = await fetch(`${API_BASE_URL}/dao-data?address=${address}`);
+  if (!response.ok) {
+    throw new Error('Failed to fetch DAO data');
+  }
+  return response.json();
 }
 
-export async function getDaoInfo() {
-  const client = await getOsmosisClient();
-  const query = { info: {} };
-  const response = await client.queryContractSmart(CONTRACT_ADDRESS, query);
-  return response;
+export async function getProposals() {
+  const response = await fetch(`${API_BASE_URL}/proposals`);
+  if (!response.ok) {
+    throw new Error('Failed to fetch proposals');
+  }
+  return response.json();
 }
 
-export async function getStakedBalance(address) {
-  const client = await getOsmosisClient();
-  // Assuming there's a query to get staked balance. If not, we might need to adjust this.
-  const query = { get_staked_balance: { address } };
-  const response = await client.queryContractSmart(CONTRACT_ADDRESS, query);
-  return response.balance;
-}
-
-export async function getPendingRewards(address) {
-  const client = await getOsmosisClient();
-  const query = { get_pending_rewards: { address } };
-  const response = await client.queryContractSmart(CONTRACT_ADDRESS, query);
-  return response.pending_rewards;
+export async function getVotingPower(address, daoId) {
+  const response = await fetch(`${API_BASE_URL}/voting-power?address=${address}&daoId=${daoId}`);
+  if (!response.ok) {
+    throw new Error('Failed to fetch voting power');
+  }
+  return response.json();
 }

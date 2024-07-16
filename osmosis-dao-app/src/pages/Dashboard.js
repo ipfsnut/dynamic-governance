@@ -1,65 +1,101 @@
 import React, { useState, useEffect } from 'react';
 import { useDynamicContext } from '@dynamic-labs/sdk-react';
-import { getDaoInfo, getStakedBalance, getPendingRewards } from '../services/osmosisService';
 
 function Dashboard() {
-  const [daoInfo, setDaoInfo] = useState(null);
-  const [stakedBalance, setStakedBalance] = useState(null);
-  const [pendingRewards, setPendingRewards] = useState(null);
+  const [daoData, setDaoData] = useState(null);
+  const [proposals, setProposals] = useState([]);
+  const [votingPower, setVotingPower] = useState(null);
+  const [error, setError] = useState(null);
   const { user } = useDynamicContext();
 
   useEffect(() => {
-    async function fetchDaoInfo() {
+    async function fetchData() {
+      console.log("Fetching data...");
       try {
-        const info = await getDaoInfo();
-        setDaoInfo(info);
-      } catch (error) {
-        console.error("Error fetching DAO info:", error);
-      }
-    }
+        // Fetch main DAO data
+        console.log("Fetching main DAO data");
+        const daoResponse = await fetch('/api/dao-data');
+        if (!daoResponse.ok) throw new Error(`HTTP error! status: ${daoResponse.status}`);
+        const daoData = await daoResponse.json();
+        console.log("Received DAO data:", daoData);
+        setDaoData(daoData);
 
-    fetchDaoInfo();
-  }, []);
+        // Fetch proposals
+        console.log("Fetching proposals");
+        const proposalsResponse = await fetch('/api/proposals');
+        if (!proposalsResponse.ok) throw new Error(`HTTP error! status: ${proposalsResponse.status}`);
+        const proposalsData = await proposalsResponse.json();
+        console.log("Received proposals:", proposalsData);
+        setProposals(proposalsData);
 
-  useEffect(() => {
-    async function fetchUserInfo() {
-      if (user && user.walletAddress) {
-        try {
-          const balance = await getStakedBalance(user.walletAddress);
-          setStakedBalance(balance);
-
-          const rewards = await getPendingRewards(user.walletAddress);
-          setPendingRewards(rewards);
-        } catch (error) {
-          console.error("Error fetching user info:", error);
+        // Fetch voting power if user is connected
+        if (user?.walletAddress) {
+          console.log("Fetching voting power");
+          const votingPowerResponse = await fetch(`/api/voting-power?address=${user.walletAddress}&daoId=${daoData.addr}`);
+          if (!votingPowerResponse.ok) throw new Error(`HTTP error! status: ${votingPowerResponse.status}`);
+          const votingPowerData = await votingPowerResponse.json();
+          console.log("Received voting power:", votingPowerData);
+          setVotingPower(votingPowerData.votingPower);
         }
+      } catch (error) {
+        console.error('Error fetching data:', error);
+        setError(error.message);
       }
     }
 
-    fetchUserInfo();
+    fetchData();
   }, [user]);
 
-  if (!daoInfo) {
-    return <div>Loading DAO information...</div>;
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
+
+  if (!daoData) {
+    return <div>Loading...</div>;
   }
 
   return (
     <div>
       <h1>PageDAO Dashboard</h1>
       <h2>DAO Information</h2>
-      <p>Staking Contract: {daoInfo.config.staking_contract}</p>
-      <p>Reward Token: {daoInfo.config.reward_token.denom}</p>
-      <p>Reward Duration: {daoInfo.config.reward_duration} seconds</p>
+      <ul>
+        <li>DAO Name: {daoData.name || 'PageDAO'}</li>
+        <li>Staking Contract: {daoData.stakingContract}</li>
+        <li>Reward Token: {daoData.rewardToken?.denom}</li>
+        <li>Reward Duration: {daoData.rewardDuration} seconds</li>
+        <li>Total Sub-DAOs: {daoData.subDAOs ? daoData.subDAOs.length : 'N/A'}</li>
+        <li>Total Proposals: {proposals.length}</li>
+        <li>Creation Date: {daoData.creationDate || 'N/A'}</li>
+      </ul>
 
-      {user ? (
+      <h2>Sub-DAOs</h2>
+      {daoData.subDAOs && daoData.subDAOs.length > 0 ? (
+        <ul>
+          {daoData.subDAOs.map((subDao, index) => (
+            <li key={index}>{subDao.addr}</li>
+          ))}
+        </ul>
+      ) : (
+        <p>No Sub-DAOs available</p>
+      )}
+
+      <h2>Proposals</h2>
+      {proposals.length > 0 ? (
+        <ul>
+          {proposals.map((proposal, index) => (
+            <li key={index}>{proposal.title}</li>
+          ))}
+        </ul>
+      ) : (
+        <p>No proposals available</p>
+      )}
+
+      {user && (
         <div>
           <h2>Your Information</h2>
           <p>Wallet Address: {user.walletAddress}</p>
-          <p>Staked Balance: {stakedBalance || 'Loading...'}</p>
-          <p>Pending Rewards: {pendingRewards || 'Loading...'}</p>
+          <p>Voting Power: {votingPower || 'Loading...'}</p>
         </div>
-      ) : (
-        <p>Connect your wallet to view your staking information.</p>
       )}
     </div>
   );
