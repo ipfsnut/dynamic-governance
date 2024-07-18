@@ -1,0 +1,56 @@
+flowchart TD
+    User((User))
+    DAOMgmt[DAO Management Main Screen]
+
+    subgraph GlobalDAO[Global DAO Management]
+        GlobalProposals[Global Proposals]
+        GlobalVoting[Global Voting]
+        GlobalStaking[Global Staking]
+        GlobalDelegation[Global Delegation]
+    end
+
+    subgraph GranularDAO[Granular DAO Management]
+        SubDAOList[SubDAO / Book Club List]
+        SubDAODetails[SubDAO Details]
+        SubDAOProposals[SubDAO Proposals]
+        SubDAOVoting[SubDAO Voting]
+        SubDAOStaking[SubDAO Staking]
+    end
+
+    subgraph UserDashboard[User Dashboard]
+        UserStake[Staking Overview]
+        UserXP[XP Level]
+        UserRewards[Rewards]
+        UserVotingPower[Voting Power]
+    end
+
+    User --> DAOMgmt
+    DAOMgmt --> GlobalDAO
+    DAOMgmt --> GranularDAO
+    DAOMgmt --> UserDashboard
+
+    GlobalDAO --> GlobalProposals
+    GlobalDAO --> GlobalVoting
+    GlobalDAO --> GlobalStaking
+    GlobalDAO --> GlobalDelegation
+
+    GranularDAO --> SubDAOList
+    SubDAOList --> SubDAODetails
+    SubDAODetails --> SubDAOProposals
+    SubDAODetails --> SubDAOVoting
+    SubDAODetails --> SubDAOStaking
+
+    UserDashboard --> UserStake
+    UserDashboard --> UserXP
+    UserDashboard --> UserRewards
+    UserDashboard --> UserVotingPower
+
+    classDef mainScreen fill:#f9f,stroke:#333,stroke-width:2px;
+    classDef globalSection fill:#bbf,stroke:#333,stroke-width:2px;
+    classDef granularSection fill:#bfb,stroke:#333,stroke-width:2px;
+    classDef userSection fill:#ffd,stroke:#333,stroke-width:2px;
+
+    class DAOMgmt mainScreen;
+    class GlobalDAO,GlobalProposals,GlobalVoting,GlobalStaking,GlobalDelegation globalSection;
+    class GranularDAO,SubDAOList,SubDAODetails,SubDAOProposals,SubDAOVoting,SubDAOStaking granularSection;
+    class UserDashboard,UserStake,UserXP,UserRewards,UserVotingPower userSection;
