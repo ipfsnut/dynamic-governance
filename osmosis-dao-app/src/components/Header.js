@@ -1,44 +1,24 @@
+// src/components/Header.js
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useDynamicContext } from '@dynamic-labs/sdk-react';
+import { DynamicWidget } from '@dynamic-labs/sdk-react';
+import './Header.css'; // We'll create this CSS file next
 
-function Header() {
-  const dynamicContext = useDynamicContext();
-  
-  console.log('Dynamic Context:', dynamicContext);
-
-  const { user, handleLogOut, showAuthFlow } = dynamicContext || {};
-
-  const handleConnect = () => {
-    console.log('Connect clicked');
-    if (typeof showAuthFlow === 'function') {
-      showAuthFlow();
-    } else if (dynamicContext && typeof dynamicContext.setShowAuthFlow === 'function') {
-      dynamicContext.setShowAuthFlow(true);
-    } else {
-      console.error('No method available to show auth flow');
-    }
-  };
-
+const Header = () => {
   return (
-    <header>
-      <nav>
-        <ul>
-          <li><Link to="/">Home</Link></li>
-          <li><Link to="/dashboard">Dashboard</Link></li>
-          <li><Link to="/proposals">Proposals</Link></li>
-        </ul>
-      </nav>
-      {user ? (
-        <div>
-          <span>{user.wallet?.address}</span>
-          <button onClick={handleLogOut}>Disconnect</button>
-        </div>
-      ) : (
-        <button onClick={handleConnect}>Connect Wallet</button>
-      )}
+    <header className="app-header">
+      <div className="header-content">
+        <nav>
+          <ul>
+            <li><Link to="/global">Global DAO</Link></li>
+            <li><Link to="/granular">Granular DAO</Link></li>
+            <li><Link to="/dashboard">User Dashboard</Link></li>
+          </ul>
+        </nav>
+        <DynamicWidget />
+      </div>
     </header>
   );
-}
+};
 
 export default Header;

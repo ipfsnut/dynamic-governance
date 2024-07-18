@@ -1,5 +1,8 @@
 .App {
   text-align: center;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 .App-logo {
@@ -35,4 +38,13 @@
   to {
     transform: rotate(360deg);
   }
+}
+.app-main {
+  flex-grow: 1;
+  padding-top: 80px; /* Adjust this value based on your header height */
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+  padding-left: 2rem;
+  padding-right: 2rem;
 }
