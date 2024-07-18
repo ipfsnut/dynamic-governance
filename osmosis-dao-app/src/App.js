@@ -7,7 +7,7 @@ import Dashboard from './pages/Dashboard';
 
 function App() {
   return (
-    <DynamicContextProvider settings={{ environmentId: 'YOUR_ENVIRONMENT_ID' }}>
+    <DynamicContextProvider settings={{ environmentId: 'REACT_APP_DYNAMIC_ENVIRONMENT_ID' }}>
       <Router>
         <div>
           <header>
