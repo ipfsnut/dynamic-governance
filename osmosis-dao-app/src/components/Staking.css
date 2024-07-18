@@ -1,0 +1,18 @@
+.staking-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f5f5f5;
+    border-radius: 8px;
+  }
+  
+  .staking-container h2 {
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  .staking-container p {
+    font-size: 18px;
+    color: #0056b3;
+  }
+  

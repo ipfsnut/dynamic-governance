@@ -1,0 +1,54 @@
+.global-voting-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .active-proposals-list {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .active-proposal-item {
+    background-color: #f0f8ff;
+    border: 1px solid #b0d4ff;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    padding: 15px;
+  }
+  
+  .active-proposal-item h3 {
+    margin-top: 0;
+    color: #0056b3;
+  }
+  
+  .proposal-voting {
+    margin-top: 15px;
+  }
+  
+  .proposal-voting button {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 10px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    margin-right: 10px;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+  
+  .proposal-voting button:hover {
+    background-color: #45a049;
+  }
+  
+  .proposal-voting button:last-child {
+    background-color: #f44336;
+  }
+  
+  .proposal-voting button:last-child:hover {
+    background-color: #d32f2f;
+  }
+  

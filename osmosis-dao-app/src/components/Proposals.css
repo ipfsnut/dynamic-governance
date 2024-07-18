@@ -1,0 +1,54 @@
+.proposals-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .proposals-list {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .proposal-item {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    padding: 15px;
+  }
+  
+  .proposal-item h3 {
+    margin-top: 0;
+    color: #333;
+  }
+  
+  .proposal-details {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+    font-size: 0.9em;
+    color: #666;
+  }
+  
+  .proposal-actions {
+    margin-top: 15px;
+  }
+  
+  .proposal-actions button {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 10px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    margin-right: 10px;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+  
+  .proposal-actions button:hover {
+    background-color: #45a049;
+  }
+  
