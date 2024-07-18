@@ -22,11 +22,11 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-  "start": "REACT_APP_API_URL=https://r4ml53lz-3000.usw3.devtunnels.ms react-scripts start",
-  "build": "react-scripts build",
-  "test": "react-scripts test",
-  "eject": "react-scripts eject"
-},
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
 
   "eslintConfig": {
     "extends": [
