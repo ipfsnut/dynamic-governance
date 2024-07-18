@@ -25,3 +25,31 @@ export const fetchProposals = async () => {
     throw error;
   }
 };
+
+export const fetchTreasury = async () => {
+  try {
+    const response = await axios.get(`${API_BASE_URL}/treasury`);
+    return response.data;
+  } catch (error) {
+    if (error.response && error.response.status === 404) {
+      console.warn('Treasury endpoint not implemented yet');
+      return null;
+    }
+    console.error('Error fetching treasury data:', error);
+    throw error;
+  }
+};
+
+export const fetchMembers = async () => {
+  try {
+    const response = await axios.get(`${API_BASE_URL}/members`);
+    return response.data;
+  } catch (error) {
+    if (error.response && error.response.status === 404) {
+      console.warn('Members endpoint not implemented yet');
+      return [];
+    }
+    console.error('Error fetching members data:', error);
+    throw error;
+  }
+};

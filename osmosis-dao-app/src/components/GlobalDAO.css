@@ -1,0 +1,101 @@
+/* GlobalDAO.css */
+
+.global-dao {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: 'Arial', sans-serif;
+    color: #333;
+    background-color: #f9f9f9;
+}
+
+.global-dao h2 {
+    color: #1e3a8a;
+    font-size: 2.5em;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.segment-selector {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    padding: 10px;
+}
+
+.segment-selector button {
+    padding: 10px 20px;
+    margin: 0 5px;
+    border: none;
+    background-color: transparent;
+    color: #1e3a8a;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s, color 0.3s;
+    border-radius: 4px;
+}
+
+.segment-selector button:hover {
+    background-color: #e6e6e6;
+}
+
+.segment-selector button.active {
+    background-color: #1e3a8a;
+    color: white;
+}
+
+.dao-config, .proposals, .treasury, .members {
+    background-color: #ffffff;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+}
+
+.dao-config h3, .proposals h3, .treasury h3, .members h3 {
+    color: #1e3a8a;
+    border-bottom: 2px solid #1e3a8a;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+.proposals ul, .members ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.proposals li, .members li {
+    margin-bottom: 15px;
+    border: 1px solid #e6e6e6;
+    padding: 15px;
+    border-radius: 4px;
+    transition: box-shadow 0.3s;
+}
+
+.proposals li:hover, .members li:hover {
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.proposals h4 {
+    color: #1e3a8a;
+    margin-top: 0;
+}
+
+/* Add a background image inspired by PageDAO */
+.global-dao::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('https://pagedao.org/wp-content/uploads/2022/01/pagedao-bg.png');
+    background-size: cover;
+    background-position: center;
+    opacity: 0.1;
+    z-index: -1;
+}
+
